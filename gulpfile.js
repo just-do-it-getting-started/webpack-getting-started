@@ -115,6 +115,16 @@ gulp.task('build', ['lint', 'guide'], function() {
 	});
 });
 
+gulp.task('webpack-uglify', function() {
+	return gulp
+			.src('./webpack/bundle.js')
+			.pipe(uglify())
+			.pipe(rename(function(path) {
+				path.basename = path.basename + ".min"
+			}))
+			.pipe(gulp.dest('./webpack'))
+});
+
 gulp.task('concatjs', function () {
 	// build내부의 리스트 파일을 읽어와서 각각의 파일명으로 머지 처리
 	glob('./build/*.list', function (er, files) {
